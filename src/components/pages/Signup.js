@@ -1,4 +1,4 @@
-import SignupImage from "../../assets/images/login.svg";
+import SignupImage from "../../assets/images/signup.svg";
 import classes from "../../styles/Signup.module.css";
 import Button from "../Button";
 import Checkbox from "../Checkbox";
@@ -26,7 +26,9 @@ export default function Signup() {
             icon="lock_clock"
           />
           <Checkbox text="I agree to the Terms &amp; Conditions" />
-          <Button>Submit Now</Button>
+          <Button>
+            <span>Submit Now</span>
+          </Button>
 
           <div className="info">
             Already have an account? <a href="login.html">Login</a> instead.
