@@ -1,1 +1,3 @@
 All rename : double click the name then "ctrl + shift + L"
+
+Search for "Firebase console"
