@@ -10,7 +10,8 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
 
   const { login } = useAuth();
-  const navigate = useNavigate();
+  const navigate = useNavigate
+  ();
   const [error, setError] = useState();
   const [loading, setLoading] = useState();
 
@@ -48,7 +49,7 @@ export default function LoginForm() {
       <Button disabled={loading} type="submit">
         <span>Submit Now</span>
       </Button>
-      <div class="info">
+      <div className="info">
         Don't have an account? <Link to="/signup">Signup</Link> instead.
       </div>
       {error && <p className="error">{error}</p>}
