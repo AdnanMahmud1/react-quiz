@@ -40,7 +40,7 @@ function App() {
             /> */}
             {/* Version 2 */}
             <Route exact path="/" element={<PrivateRoute />}>
-              <Route exact path="/quiz" element={<Quiz />} />
+              <Route exact path="/quiz/:id" element={<Quiz />} />
               <Route exact path="/result" element={<Result />} />
             </Route>
           </Routes>
