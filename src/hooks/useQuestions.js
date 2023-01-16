@@ -20,6 +20,10 @@ export default function useQuestions(videoID) {
 
         setLoading(false);
         if (snapShot.exists()) {
+          console.log(
+            "🚀 ~ file: useQuestions.js:23 ~ fetchQuestions ~ snapShot",
+            snapShot.val()
+          );
           setQuestions((prevQuestions) => {
             return [...prevQuestions, ...Object.values(snapShot.val())];
           });
