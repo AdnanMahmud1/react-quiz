@@ -11,7 +11,7 @@ export default function Result() {
   const { qna } = location.state;
 
   const { loading, error, answers } = useAnswers(id);
-  console.log("🚀 ~ file: Result.js:12 ~ Result ~ answers", answers);
+
   function calculate() {
     let score = 0;
 
@@ -44,7 +44,7 @@ export default function Result() {
       {answers && answers.length > 0 && (
         <>
           <Summary score={userScore} noq={answers.length} />
-          <Analysis answers ={answers}/>
+          <Analysis answers={answers} />
         </>
       )}
     </>
