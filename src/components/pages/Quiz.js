@@ -1,11 +1,12 @@
+import { getDatabase, ref, set } from "firebase/database";
 import _ from "lodash";
 import { useEffect, useReducer, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate , useParams } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 import useQuestions from "../../hooks/useQuestions";
 import Answers from "../Answers";
 import MiniPlayer from "../MiniPlayer";
 import ProgressBar from "../ProgressBar";
-import {} from "";
 
 const initialState = null;
 
@@ -13,6 +14,7 @@ const reducer = (state, action) => {
   switch (action.type) {
     case "questions":
       action.value.forEach((question) => {
+
         question.options.forEach((option) => {
           option.checked = false;
         });
@@ -28,6 +30,9 @@ const reducer = (state, action) => {
       return state;
   }
 };
+// function addDate(){
+
+// }
 
 export default function Quiz() {
   const { id } = useParams();
@@ -35,7 +40,8 @@ export default function Quiz() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
   const [qna, dispatch] = useReducer(reducer, initialState);
-  const {} = useAuth();
+  const { currentUser } = useAuth();
+  let navigate = useNavigate();
 
   useEffect(() => {
     dispatch({
@@ -66,12 +72,25 @@ export default function Quiz() {
     }
   }
   // submit function
-async function submit(){
+  async function submit() {
+    const { uid } = currentUser;
+    const db = getDatabase();
+    const resultRef = ref(db, `result/${uid}`);
+    await set(resultRef, {
+      [id]: qna,
+    });
 
-}
+    navigate({
+      pathname: `/result/${id}`,
+      state: {
+        qna
+      }
+  });
+  }
 
   //calculate percentage of progress
-  const percentage =questions.length >0? ((currentQuestion+1) / questions.length) * 100 : 0;
+  const percentage =
+    questions.length > 0 ? ((currentQuestion + 1) / questions.length) * 100 : 0;
 
   return (
     <>
@@ -86,7 +105,12 @@ async function submit(){
             handleChange={handleAnswerChange}
           />
 
-          <ProgressBar next={nextQuestion} prev={prevQuestion} progress={percentage}/>
+          <ProgressBar
+            next={nextQuestion}
+            prev={prevQuestion}
+            submit={submit}
+            progress={percentage}
+          />
           <MiniPlayer />
         </>
       )}
