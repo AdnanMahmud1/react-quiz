@@ -1,7 +1,7 @@
 import { getDatabase, ref, set } from "firebase/database";
 import _ from "lodash";
 import { useEffect, useReducer, useState } from "react";
-import { useNavigate , useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import useQuestions from "../../hooks/useQuestions";
 import Answers from "../Answers";
@@ -14,7 +14,6 @@ const reducer = (state, action) => {
   switch (action.type) {
     case "questions":
       action.value.forEach((question) => {
-
         question.options.forEach((option) => {
           option.checked = false;
         });
@@ -60,7 +59,6 @@ export default function Quiz() {
   }
   // handle when user clicks the next button to get the next question
   function nextQuestion() {
-    console.log("call next");
     if (currentQuestion + 1 < questions.length) {
       setCurrentQuestion((prevCurrent) => prevCurrent + 1);
     }
@@ -80,12 +78,7 @@ export default function Quiz() {
       [id]: qna,
     });
 
-    navigate({
-      pathname: `/result/${id}`,
-      state: {
-        qna
-      }
-  });
+    navigate(`/result/${id}`, { state: { qna } });
   }
 
   //calculate percentage of progress
@@ -101,6 +94,7 @@ export default function Quiz() {
           <h1>{qna[currentQuestion].title}</h1>
           <h4>Question can have multiple answers</h4>
           <Answers
+            input
             options={qna[currentQuestion].options}
             handleChange={handleAnswerChange}
           />
